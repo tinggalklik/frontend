@@ -59,7 +59,7 @@ define([
 
         var interactiveCompleter = function (complete) {
             mediator.on('contributions-embed:insert', function (el) {
-                if (el.length < 1 ) {
+                if (el.length < 2 ) {
                     return;
                 }
                 var component = el[0];
