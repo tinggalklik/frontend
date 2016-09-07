@@ -1,9 +1,10 @@
-@import '../_vars';
-@import '../_mixins';
+//DELETE BEFORE PR
+
 $labour-liverpool-header-element-opacity: .85;
 
 .immersive-header-container--labour-liverpool {
-    min-height: 600px;
+    min-height: 650px;
+    background-color: black;
 
     .immersive-main-media__media {
         position: absolute;
@@ -12,6 +13,10 @@ $labour-liverpool-header-element-opacity: .85;
         @supports (object-fit: cover) and (height: 1vh) and (display: flex) {
             height: 100%;
         }
+    }
+
+    .immersive-main-media__heroic{
+      opacity: 0.6;
     }
 
     .content__wrapper--standfirst {
@@ -25,12 +30,58 @@ $labour-liverpool-header-element-opacity: .85;
     }
 }
 
+.content__standfirst--heroic-article{
+  @include fs-headline(4);
+  color: $neutral-8;
+  font-size: 28px;
+  font-weight: 200;
+  background-color: $news-main-2;
+  margin-top: -$gs-gutter *4.6;
+  padding-top: $gs-gutter* 1.5;
+  padding-bottom: $gs-gutter * 2.5;
+  -webkit-clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+  clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+
+  @include mq($from: tablet){
+    margin-top: -$gs-gutter *4.6;
+    padding-top: $gs-gutter* 1.8;
+    padding-bottom: $gs-gutter * 3;
+    -webkit-clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 80%);
+    clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 80%);
+  }
+
+  @include mq($from: desktop){
+    padding-top: $gs-gutter* 2.5;
+    -webkit-clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%);
+    clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%);
+  }
+
+  p{
+    width: 82%;
+    margin-left: 9%;
+    margin-right: 9%;
+
+    @include mq($from: tablet){
+      width: 570px;
+      padding-right: 110px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @include mq($from: desktop) {
+      padding-right: 365px;
+    }
+
+    @include mq($from: leftCol) {
+      padding-right: 210px;
+    }
+  }
+}
+
 .content--labour-liverpool .content__article-body > p:first-of-type {
-    @include fs-headline(3);
-    color: darken($news-support-4, 25%);
-    margin-top: $gs-baseline;
-    font-size: 22px;
-    font-weight: 200;
+      @include mq($from: tablet){
+        margin-top: -$gs-gutter * 1.5;
+      }
 }
 
 .labour-liverpool-cutout {
@@ -60,10 +111,10 @@ $labour-liverpool-header-element-opacity: .85;
     }
 
     @supports (object-fit: cover) and (height: 1vh) and (display: flex) {
-        top: 319px;
+        top: 420px;
 
         @include mq($from: tablet) {
-            top: 314px;
+            top: 420px;
         }
     }
 }
@@ -73,7 +124,6 @@ $labour-liverpool-header-element-opacity: .85;
     position: absolute;
     font-weight: 800;
     color: #ffffff;
-    margin: $gs-baseline 0;
     padding-left: $gs-gutter;
     width: gs-span(4);
 
@@ -81,7 +131,15 @@ $labour-liverpool-header-element-opacity: .85;
         @include fs-headline(8);
         font-weight: 800;
         width: gs-span(7);
-        margin: $gs-baseline $gs-gutter*2;
+    }
+
+    &:before {
+      display: block;
+      content: '';
+      height: 3px;
+      width: gs-span(2);
+      background-color:$neutral-8;
+      margin-bottom: 6px;
     }
 }
 

@@ -11,9 +11,10 @@
     page.item.tags.isLabourLiverpoolSeries
 )) { case (hasEmbed, hasMainMedia, isLabourLiverpoolSeries) =>
 
-  <style>
+<!-- REMOVE BEFORE PR -->
+<!--  <style>
     @Html(common.Assets.css.inlineLabourLiverpool)
-  </style>
+  </style> -->
 
     <div class="@RenderClasses(Map(
             "content--labour-liverpool-article" -> isLabourLiverpoolSeries,
@@ -32,7 +33,7 @@
                 @page.item.elements.mainPicture.map(_.images).orElse(page.item.trail.trailPicture).map { picture =>
                     @fragments.image(
                         picture = picture,
-                        classes = Seq("immersive-main-media__media"),
+                        classes = Seq("immersive-main-media__media immersive-main-media__heroic"),
                         widths = MainMedia.immersive,
                         imageAltText = "",
                         isImmersiveMainMedia = true
@@ -69,9 +70,6 @@
         <div class="labour-liverpool-headline">
             <div class="gs-container">
                 <div class="content__main-column">
-                    <div class="labour-liverpool-headline__background">
-                        @fragments.inlineSvg("labour-liverpool-header-bg", "membership")
-                    </div>
                     <h1 class="labour-liverpool-headline__content">
                         @Html(page.item.trail.headline)
                     </h1>
