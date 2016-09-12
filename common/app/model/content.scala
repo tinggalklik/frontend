@@ -79,7 +79,7 @@ final case class Content(
   lazy val shortUrlPath = shortUrlId
   lazy val discussionId = Some(shortUrlId)
   lazy val isImmersiveGallery = metadata.contentType.toLowerCase == "gallery" && !trail.commercial.isAdvertisementFeature
-  lazy val isHeroic = HeroicTemplateSwitch.isSwitchedOn && tags.isLabourLiverpoolSeries
+  lazy val isHeroic = HeroicTemplateSwitch.isSwitchedOn && tags.isExplore
   lazy val isImmersive = fields.displayHint.contains("immersive") || isImmersiveGallery || tags.isUSMinuteSeries || isHeroic
   lazy val isAdvertisementFeature: Boolean = tags.tags.exists{ tag => tag.id == "tone/advertisement-features" }
 

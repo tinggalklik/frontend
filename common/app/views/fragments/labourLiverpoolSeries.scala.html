@@ -8,8 +8,8 @@
 @defining((
     page.item.elements.hasMainEmbed,
     page.item.fields.main.nonEmpty,
-    page.item.tags.isLabourLiverpoolSeries
-)) { case (hasEmbed, hasMainMedia, isLabourLiverpoolSeries) =>
+    page.item.tags.isExplore
+)) { case (hasEmbed, hasMainMedia, isExplore) =>
 
 <!-- REMOVE BEFORE PR -->
 <!--  <style>
@@ -17,7 +17,7 @@
   </style> -->
 
     <div class="@RenderClasses(Map(
-            "content--labour-liverpool-article" -> isLabourLiverpoolSeries,
+            "content--labour-liverpool-article" -> isExplore,
             "immersive-main-media" -> hasMainMedia
         ),
         "content", "tonal", s"tonal--${toneClass(page.item)}")
@@ -49,10 +49,6 @@
                 }
             }
         </div>
-
-        <div class="content--labour-liverpool-article__headline-background">
-             @fragments.inlineSvg("labour-liverpool-headline-bg", "membership")
-        </div>
         <div class="series-identity">
             <div class="gs-container">
                 <div class="content__main-column">
@@ -66,13 +62,14 @@
                 </div>
             </div>
         </div>
-
         <div class="labour-liverpool-headline">
             <div class="gs-container">
                 <div class="content__main-column">
+                  @if(page.item.elements.hasMainPicture || page.item.elements.hasMainVideo || !page.item.fields.main.nonEmpty) {
                     <h1 class="labour-liverpool-headline__content">
                         @Html(page.item.trail.headline)
                     </h1>
+                  }
                 </div>
             </div>
         </div>
