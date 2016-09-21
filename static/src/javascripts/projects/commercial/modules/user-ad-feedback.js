@@ -32,6 +32,8 @@ define([
         for (var x = 0; x < adSlotIframes.length; x++) {
             try {
                 adContentHtml.push(adSlotIframes[x].contentDocument.documentElement.innerHTML);
+            } catch (ex) {
+                // ignore it
             }
         }
 
