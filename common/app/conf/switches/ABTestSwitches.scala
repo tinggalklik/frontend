@@ -78,11 +78,11 @@ trait ABTestSwitches {
 
   Switch(
     ABTests,
-    "ab-ad-feedback",
-    "Solicit feedback for ad impressions",
+    "ab-ad-feedback2",
+    "Solicit feedback for ad impressions (phase 2)",
     owners = Seq(Owner.withGithub("justinpinner")),
-    safeState = Off,
-    sellByDate = new LocalDate(2016, 9, 14),  // Wednesday
+    safeState = On,
+    sellByDate = new LocalDate(2016, 10, 18 ),  // Wednesday
     exposeClientSide = true
   )
 

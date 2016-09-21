@@ -126,8 +126,8 @@ define([
 
         return applyCreativeTemplate(advert.node).then(function (isRendered) {
             return callSizeCallback()
-                .then(addFeedbackDropdownToggle)
                 .then(function () { return renderAdvertLabel(advert.node); })
+                .then(addFeedbackDropdownToggle)
                 .then(function () { return applyFeedbackOnClickListeners(slotRenderEvent); })
                 .then(addRenderedClass)
                 .then(function () {

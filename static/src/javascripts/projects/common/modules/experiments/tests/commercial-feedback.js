@@ -5,9 +5,9 @@ define([
 ) {
 
     return function () {
-        this.id = 'AdFeedback';
-        this.start = '2016-07-21';
-        this.expiry = '2016-09-14';
+        this.id = 'AdFeedback2';
+        this.start = '2016-09-19';
+        this.expiry = '2016-10-18';
         this.author = 'Justin Pinner';
         this.description = 'Learn which ads attract user feedback.';
         this.audience = 0.02;
@@ -16,7 +16,7 @@ define([
         this.idealOutcome = 'Learn about the quality of ads so that we can figure out how to make things better.';
 
         this.canRun = function () {
-            return config.switches.abAdFeedback === true;
+            return config.switches.abAdFeedback2 === true;
         };
 
         this.variants = [{

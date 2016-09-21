@@ -13,9 +13,9 @@ define([
         if (shouldRenderLabel(adSlotNode)) {
             var zIndexOverlay = 1050;
             var labelInner = '';
-            if (config.switches.abAdFeedback) {
+            if (config.switches.abAdFeedback2) {
                 try {
-                    var abParticipant = store.local.get('gu.ab.participations')['AdFeedback'];
+                    var abParticipant = store.local.get('gu.ab.participations')['AdFeedback2'];
                     if (abParticipant && abParticipant.variant === 'ad-feedback-variant') {
                         var feedbackOpts = [
                             ['distracting'],
