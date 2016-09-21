@@ -29,11 +29,9 @@ define([
             adSlotIframes = adSlotEl.getElementsByTagName('iframe'),
             adContentHtml = [];
 
-        for (x = 0; x < adSlotIframes.length; x++) {
+        for (var x = 0; x < adSlotIframes.length; x++) {
             try {
                 adContentHtml.push(adSlotIframes[x].contentDocument.documentElement.innerHTML);
-            } catch (ex) {
-                console.log('error ' + ex.message);
             }
         }
 
