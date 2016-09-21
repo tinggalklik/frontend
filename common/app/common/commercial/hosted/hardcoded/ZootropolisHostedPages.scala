@@ -12,9 +12,7 @@ object ZootropolisHostedPages {
     name = "Zootropolis",
     owner = "Disney",
     logo = HostedLogo("https://static.theguardian.com/commercial/hosted/disney-zootropolis/zootropolis-logo.jpg"),
-    cssClass = "zootropolis",
-    fontColour = FontColour("#2ec869"),
-    logoLink = None
+    fontColour = FontColour("#2ec869")
   )
 
   private val cta = HostedCallToAction(
@@ -78,7 +76,7 @@ object ZootropolisHostedPages {
 
   private lazy val articlePageName = "meet-the-characters-of-zootropolis"
 
-  private lazy val articlePageWithoutNextPage = HostedArticlePage(
+  private lazy val articlePageWithoutNextPage = ZootropolisPage(
     campaign,
     pageUrl = s"$host/advertiser-content/${campaign.id}/$articlePageName",
     pageName = articlePageName,

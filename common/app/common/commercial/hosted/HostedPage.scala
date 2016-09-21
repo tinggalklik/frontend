@@ -25,10 +25,6 @@ trait HostedPage extends StandalonePage {
   final val toneId = "tone/hosted"
   final val toneName = "Hosted"
 
-  val brandColourCssClass = s"hosted-tone--${campaign.cssClass} hosted-tone"
-  val brandBackgroundCssClass = s"hosted-tone-bg--${campaign.cssClass} hosted-tone-bg"
-  val brandBorderCssClass = s"hosted-tone-border--${campaign.cssClass} hosted-tone-border"
-  val brandBtnCssClass = s"hosted-tone-btn--${campaign.cssClass} hosted-tone-btn"
 }
 
 case class NextHostedPage(
@@ -42,7 +38,6 @@ case class HostedCampaign(
   name: String,
   owner: String,
   logo: HostedLogo,
-  cssClass: String,
   fontColour: FontColour,
   logoLink: Option[String] = None
 )
@@ -55,13 +50,12 @@ case class FontColour(brandColour: String) {
     val hexColour = brandColour.stripPrefix("#")
     val rgb = Integer.parseInt(hexColour, 16)
     val c = new Color(rgb)
-    val hsb = Color.RGBtoHSB(c.getRed, c.getGreen, c.getBlue, null)
-    val brightness = hsb(2)
-    if(brandColour == "#E31B22") {
-      false
-    } else {
-      brightness > 0.5
-    }
+    // the conversion in java.awt.Color uses HSB colour space, whereas we want HSL here
+    // see http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+    val min: Float = Math.min(Math.min(c.getRed, c.getGreen), c.getBlue)
+    val max: Float = Math.max(Math.max(c.getRed, c.getGreen), c.getBlue)
+    val lightness = (min + max) / 510
+    lightness > 0.5
   }
 }
 

@@ -13,12 +13,11 @@ define([
     'common/modules/experiments/tests/hosted-gallery-cta',
     'common/modules/experiments/tests/membership-engagement-banner',
     'common/modules/experiments/tests/commercial-feedback',
-    'common/modules/experiments/tests/recommended-for-you',
     'common/modules/experiments/tests/contributions-epic',
     'common/modules/experiments/tests/adblocking-response',
     'common/modules/experiments/tests/weekend-reading-email',
     'common/modules/experiments/tests/weekend-reading-promo',
-    'common/modules/experiments/tests/contributions-epic-buttons'
+    'common/modules/experiments/tests/video-button-duration'
 ], function (
     reportError,
     config,
@@ -34,12 +33,11 @@ define([
     HostedGalleryCallToAction,
     MembershipEngagementBannerTests,
     AdFeedback,
-    RecommendedForYou,
     ContributionsEpic,
     AdBlockingResponse,
     WeekendReadingEmail,
     WeekendReadingPromo,
-    ContributionsEpicButtons
+    VideoButtonDuration
 ) {
 
     var TESTS = [
@@ -49,11 +47,10 @@ define([
         new HostedArticleOnwardJourney(),
         new HostedGalleryCallToAction(),
         new AdFeedback(),
-        new RecommendedForYou(),
         new ContributionsEpic(),
         new WeekendReadingEmail(),
         new WeekendReadingPromo(),
-        new ContributionsEpicButtons()
+        new VideoButtonDuration()
     ].concat(MembershipEngagementBannerTests);
 
     var participationsKey = 'gu.ab.participations';

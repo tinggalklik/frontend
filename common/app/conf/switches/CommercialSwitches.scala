@@ -76,16 +76,6 @@ trait CommercialSwitches {
     exposeClientSide = true
   )
 
-  val AudienceScienceSwitch = Switch(
-    SwitchGroup.Commercial,
-    "audience-science",
-    "If this switch is on, Audience Science segments will be used to target ads.",
-    owners = Seq(Owner.withName("commercial team")),
-    safeState = Off,
-    sellByDate = never,
-    exposeClientSide = true
-  )
-
   val AudienceScienceGatewaySwitch = Switch(
     SwitchGroup.Commercial,
     "audience-science-gateway",
@@ -264,36 +254,6 @@ trait CommercialSwitches {
     safeState = On,
     sellByDate = never,
     exposeClientSide = true
-  )
-
-  val staticBadgesSwitch = Switch(
-    group = CommercialLabs,
-    "static-badges",
-    "If on, all badges are served server side",
-    owners = Owner.group(CommercialLabs),
-    safeState = Off,
-    sellByDate = new LocalDate(2016, 9, 23),
-    exposeClientSide = true
-  )
-
-  val containerBrandingFromCapi = Switch(
-    group = CommercialLabs,
-    "static-container-badges",
-    "Serve container branding from capi",
-    owners = Owner.group(CommercialLabs),
-    safeState = Off,
-    sellByDate = new LocalDate(2016, 9, 23),
-    exposeClientSide = true
-  )
-
-  val showPaidSeriesContainer = Switch(
-    group = CommercialLabs,
-    "show-paid-series-containers",
-    "Show series containers on paid content pages.",
-    owners = Owner.group(CommercialLabs),
-    safeState = Off,
-    sellByDate = new LocalDate(2016, 9, 23),
-    exposeClientSide = false
   )
 
   val showChesterZooGallery = Switch(

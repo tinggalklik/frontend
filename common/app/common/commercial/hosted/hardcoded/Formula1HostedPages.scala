@@ -10,9 +10,7 @@ object Formula1HostedPages {
     name = "Singapore Grand Prix",
     owner = "First Stop Singapore",
     logo = HostedLogo("https://static.theguardian.com/commercial/hosted/formula1-singapore/Logos-SGP-SA-1.jpg"),
-    cssClass = "f1-singapore",
-    fontColour = FontColour("#063666"),
-    logoLink = None
+    fontColour = FontColour("#063666")
   )
 
   private def cta(pageName: String) = HostedCallToAction(
@@ -27,7 +25,7 @@ object Formula1HostedPages {
   val packagesPageName = "packages"
   val offtrackPageName = "offtrack"
 
-  val overviewArticlePage = HostedArticlePage2(
+  val overviewArticlePage = HostedArticlePage(
     campaign,
     pageUrl = s"$host/advertiser-content/${campaign.id}/$overviewPageName",
     pageName = overviewPageName,
@@ -42,7 +40,7 @@ object Formula1HostedPages {
     shortSocialShareText = None
   )
 
-  val packagesArticlePage = HostedArticlePage2(
+  val packagesArticlePage = HostedArticlePage(
     campaign,
     pageUrl = s"$host/advertiser-content/${campaign.id}/$packagesPageName",
     pageName = packagesPageName,
@@ -58,7 +56,7 @@ object Formula1HostedPages {
     shortSocialShareText = None
   )
 
-  val offtrackArticlePage = HostedArticlePage2(
+  val offtrackArticlePage = HostedArticlePage(
     campaign,
     pageUrl = s"$host/advertiser-content/${campaign.id}/$offtrackPageName",
     pageName = offtrackPageName,
