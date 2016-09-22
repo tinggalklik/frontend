@@ -56,6 +56,16 @@ trait ABTestSwitches {
     exposeClientSide = true
   )
 
+  Switch(
+    ABTests,
+    "ab-contributions-usa-donatom-20160923",
+    "Test variants of the button text to drive contributions.",
+    owners = Seq(Owner.withGithub("jranks123")),
+    safeState = Off,
+    sellByDate = new LocalDate(2016, 9, 27),
+    exposeClientSide = true
+  )
+
   for (edition <- Edition.all) Switch(
     ABTests,
     "ab-membership-engagement-banner-"+edition.id.toLowerCase,
@@ -95,7 +105,7 @@ trait ABTestSwitches {
     sellByDate = new LocalDate(2016, 10, 3),
     exposeClientSide = true
   )
-  
+
   Switch(
     ABTests,
     "ab-video-button-duration",
