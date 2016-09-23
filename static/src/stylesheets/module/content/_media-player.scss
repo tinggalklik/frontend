@@ -163,10 +163,10 @@ $ima-controls-height: 70px;
     line-height: 28px;
     width: auto;
     height: 44px;
-    color: #161616;
+    color: white;
     border-radius: 46px;
     border: 0;
-    background-color: $media-default;
+    background-color: rgb(184, 34, 102);
     backface-visibility: hidden;
 
     .vjs-has-started & {
@@ -184,14 +184,14 @@ $ima-controls-height: 70px;
         padding-right: 7px;
         padding-left: 8px;
         margin-left: 4px;
-        border-left: 1px solid rgba(51, 51, 51, .6);
+        border-left: 1px solid rgba(255, 255, 255, .6);
         display: inline-block;
     }
     &:after {
         content: '';
         border: 1px solid;
         border-width: 8px 8px 8px 18px;
-        border-color: transparent transparent transparent $neutral-1;
+        border-color: transparent transparent transparent white;
         position: absolute;
         top: 50%;
         left: 14px;
@@ -215,8 +215,8 @@ $ima-controls-height: 70px;
 }
 
 button.vjs-big-play-button__duration {
-    top: 45%;
-    left: 5%;
+    bottom: 27%;
+    left: 2%;
     &:before {
         margin-top: 0;
   }
@@ -224,17 +224,17 @@ button.vjs-big-play-button__duration {
 
 .video-headline {
     position: absolute;
-    left: 10px;
-    top: 20px;
+    left: 2%;
+    bottom: 20px;
     width: 75%;
     text-align: left;
     &:before {
         @include fs-headline(1);
         content: attr(data-data-title);
         z-index: 10;
-        font-size: 40px;
+        font-size: 32px;
         font-weight: 800;
-        line-height: 40px;
+        line-height: 32px;
         color: white;
     }
     .vjs-big-play-button {
