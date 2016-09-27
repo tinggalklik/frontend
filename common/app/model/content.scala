@@ -65,7 +65,8 @@ final case class Content(
   showByline: Boolean,
   hasStoryPackage: Boolean,
   rawOpenGraphImage: String,
-  showFooterContainers: Boolean = false
+  showFooterContainers: Boolean = false,
+  title: Option[String] = None
 ) {
 
   lazy val isBlog: Boolean = tags.blogs.nonEmpty
@@ -76,16 +77,12 @@ final case class Content(
   lazy val shortUrlId = fields.shortUrlId
   lazy val shortUrlPath = shortUrlId
   lazy val discussionId = Some(shortUrlId)
-  lazy val isImmersiveGallery = {
-    metadata.contentType.toLowerCase == "gallery" &&
-    (
-        {
-          val branding = tags.tags.flatMap { tag =>
-            BrandHunter.findBranding( tag.properties.activeBrandings, Edition.defaultEdition, None)
-          }.headOption
-          branding.isEmpty || branding.exists(_.sponsorshipType != PaidContent)
-        }
-    )
+  lazy val isImmersiveGallery = metadata.contentType.toLowerCase == "gallery" &&
+  {
+    val branding = tags.tags.flatMap { tag =>
+      BrandHunter.findBranding(tag.properties.activeBrandings, Edition.defaultEdition, None)
+    }.headOption
+    branding.isEmpty || branding.exists(_.sponsorshipType != PaidContent)
   }
   lazy val isExplore = ExploreTemplateSwitch.isSwitchedOn && tags.isExploreSeries
   lazy val isImmersive = fields.displayHint.contains("immersive") || isImmersiveGallery || tags.isTheMinuteArticle || isExplore
@@ -343,6 +340,7 @@ object Content {
     val apifields = apiContent.fields
     val references: Map[String,String] = apiContent.references.map(ref => (ref.`type`, Reference.split(ref.id)._2)).toMap
     val cardStyle: fapiutils.CardStyle = fapiutils.CardStyle(apiContent, TrailMetaData.empty)
+    val title = Some(apiContent.webTitle)
 
     Content(
       trail = trail,
@@ -387,7 +385,8 @@ object Content {
           .orElse(elements.mainPicture.flatMap(_.images.largestImageUrl))
           .orElse(trail.trailPicture.flatMap(_.largestImageUrl))
           .getOrElse(Configuration.images.fallbackLogo)
-      }
+      },
+      title = title
     )
   }
 }

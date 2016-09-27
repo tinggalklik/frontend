@@ -225,8 +225,8 @@ button.vjs-big-play-button__duration {
 .video-headline {
     position: absolute;
     left: 5%;
-    top: 20px;
-    width: 75%;
+    top: 3.25rem;
+    width: 360px;
     text-align: left;
     &:before {
         @include fs-headline(1);

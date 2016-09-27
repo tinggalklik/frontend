@@ -11,6 +11,7 @@ import views.support.RenderOtherStatus
 import JsonComponent.withRefreshStatus
 
 import scala.concurrent.Future
+import scala.tools.nsc.doc.base.comment.Title
 
 case class MediaPage(media: ContentType, related: RelatedContent) extends ContentPage {
   override lazy val item = media
@@ -23,8 +24,8 @@ class MediaController(contentApiClient: ContentApiClient) extends Controller wit
 
   def renderInfoJson(path: String) = Action.async { implicit request =>
     lookup(path) map {
-      case Left(model)  => MediaInfo(expired = false, shouldHideAdverts = model.media.content.shouldHideAdverts)
-      case Right(other) => MediaInfo(expired = other.header.status == GONE, shouldHideAdverts = true)
+      case Left(model)  => MediaInfo(expired = false, shouldHideAdverts = model.media.content.shouldHideAdverts, model.media.content.title.getOrElse(""))
+      case Right(other) => MediaInfo(expired = other.header.status == GONE, shouldHideAdverts = true, "This video is no longer available")
     } map { mediaInfo =>
       Cached(60)(JsonComponent(withRefreshStatus(Json.toJson(mediaInfo).as[JsObject])))
     }
@@ -64,7 +65,7 @@ class MediaController(contentApiClient: ContentApiClient) extends Controller wit
   override def canRender(i: ItemResponse): Boolean = i.content.exists(isSupported)
 }
 
-case class MediaInfo(expired: Boolean, shouldHideAdverts: Boolean)
+case class MediaInfo(expired: Boolean, shouldHideAdverts: Boolean, title: String)
 object MediaInfo {
   implicit val jsonFormats: Format[MediaInfo] = Json.format[MediaInfo]
 }

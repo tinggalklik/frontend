@@ -275,6 +275,7 @@ define([
                         });
                     } else {
                         blockVideoAds = videoInfo.shouldHideAdverts;
+                        initVideoHeadline(el, videoInfo);
                         withPreroll = shouldPreroll && !blockVideoAds;
 
                         // Location of this is important.
