@@ -240,6 +240,15 @@ button.vjs-big-play-button__duration {
     .vjs-big-play-button {
         left: 0;
     }
+    &--gradient {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: $neutral-1;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+    }
 }
 
 .vjs-fullscreen-clickbox {
