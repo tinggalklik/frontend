@@ -166,6 +166,23 @@ define([
         }
     }
 
+    function initVideoHeadline(el, videoInfo) {
+        var buttonElement = el.parentElement.querySelector('button.vjs-big-play-button');
+        buttonElement.classList.remove('vjs-big-play-button');
+        buttonElement.classList.add('vjs-big-play-button__duration');
+        var buttonDuration = el.getAttribute('data-formatted-duration');
+        buttonElement.dataset.formattedDuration = buttonDuration;
+        var videoPosterElement = el.parentElement.querySelector('.vjs-big-play-button__duration');
+        var div = document.createElement('div');
+        var vidGradient = document.createElement('div');
+        var videoHeadline = videoInfo.title.replace(' – video','').replace(' - video','');
+        div.classList.add('video-headline');
+        vidGradient.classList.add('video-headline--gradient');
+        div.dataset.dataVideoName = videoHeadline;
+        videoPosterElement.appendChild(div);
+        el.parentElement.querySelector('.vjs-poster').appendChild(vidGradient);
+    }
+
     function isGeoBlocked(el) {
         var source = el.currentSrc;
 
@@ -275,7 +292,9 @@ define([
                         });
                     } else {
                         blockVideoAds = videoInfo.shouldHideAdverts;
-                        initVideoHeadline(el, videoInfo);
+                        if(ab.isInVariant('VideoHeadline', 'video-headline')) {
+                          initVideoHeadline(el, videoInfo);
+                        }
                         withPreroll = shouldPreroll && !blockVideoAds;
 
                         // Location of this is important.
