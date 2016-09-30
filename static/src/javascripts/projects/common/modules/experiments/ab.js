@@ -14,7 +14,8 @@ define([
     'common/modules/experiments/tests/weekend-reading-promo',
     'common/modules/experiments/tests/contributions-story',
     'common/modules/experiments/tests/upgrade-mobile-rich-links-below-viewport',
-    'common/modules/experiments/tests/contributions-epic-short'
+    'common/modules/experiments/tests/contributions-epic-short',
+    'common/modules/experiments/tests/video-button-duration-vs-predator'
 ], function (
     reportError,
     config,
@@ -31,7 +32,8 @@ define([
     WeekendReadingPromo,
     ContributionsStory,
     UpgradeMobileRichLinksBelowViewport,
-    ContributionsEpicShort
+    ContributionsEpicShort,
+    VideoButtonDurationVsPredator
 ) {
 
     var TESTS = [
@@ -41,7 +43,8 @@ define([
         new WeekendReadingPromo(),
         new ContributionsStory(),
         new UpgradeMobileRichLinksBelowViewport(),
-        new ContributionsEpicShort()
+        new ContributionsEpicShort(),
+        new VideoButtonDurationVsPredator()
     ].concat(MembershipEngagementBannerTests);
 
     var participationsKey = 'gu.ab.participations';

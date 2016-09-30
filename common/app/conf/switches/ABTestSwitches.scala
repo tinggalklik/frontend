@@ -93,6 +93,15 @@ trait ABTestSwitches {
     owners = Seq(Owner.withGithub("Mullefa")),
     safeState = Off,
     sellByDate = new LocalDate(2016, 10, 10),
+  )
+
+  Switch(
+    ABTests,
+    "ab-video-button-duration-vs-predator",
+    "Show visitors new video play button",
+    owners = Seq(Owner.withGithub("mr-mr")),
+    safeState = Off,
+    sellByDate = new LocalDate(2016, 9, 30),
     exposeClientSide = true
   )
 }
