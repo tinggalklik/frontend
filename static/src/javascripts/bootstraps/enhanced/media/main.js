@@ -503,4 +503,4 @@ define([
     return {
         init: init
     };
-});
+}
