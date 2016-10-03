@@ -36,6 +36,27 @@ trait ABTestSwitches {
     exposeClientSide = true
   )
 
+  Switch(
+    ABTests,
+    "ab-hosted-gallery-cta",
+    "Test which gallery image to put the call to action link on",
+    owners = Seq(Owner.withGithub("lps88")),
+    safeState = Off,
+    sellByDate = new LocalDate(2016, 9, 29),
+    exposeClientSide = true
+  )
+
+
+  Switch(
+    ABTests,
+    "ab-contributions-usa-donatom",
+    "Test variants of the button text to drive contributions.",
+    owners = Seq(Owner.withGithub("jranks123")),
+    safeState = Off,
+    sellByDate = new LocalDate(2016, 10, 27),
+    exposeClientSide = true
+  )
+
   for (edition <- Edition.all) Switch(
     ABTests,
     "ab-membership-engagement-banner-"+edition.id.toLowerCase,

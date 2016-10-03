@@ -137,6 +137,7 @@ define([
             canDisplayMembershipEngagementBanner : detect.adblockInUse.then(function (adblockUsed) {
                 return !adblockUsed && self.canReasonablyAskForMoney;
             })
+            
         };
     }
 
