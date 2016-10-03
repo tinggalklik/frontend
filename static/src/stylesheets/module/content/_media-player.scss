@@ -1195,7 +1195,7 @@ button.vjs-big-play-button__duration {
 .gu-media--show-controls-at-start.vjs-paused {
     .vjs-control-bar {
         //Hides control bar but still shows the seeker
-        bottom: 0;
+        bottom: -3.95em;
     }
 
     .vjs-big-play-button .vjs-control-text {
