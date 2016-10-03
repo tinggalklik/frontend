@@ -72,6 +72,22 @@ class MostPopularController(contentApiClient: ContentApiClient,
     }
   }
 
+  def getGeoLocation() = Action { implicit request =>
+
+    val headers = request.headers.toSimpleMap
+    val countryCode = headers.getOrElse("X-GU-GeoLocation","country:row").replace("country:","")
+
+    val countryPopular = MostPopular("across the guardian", "", geoMostPopularAgent.mostPopular(countryCode).map(_.faciaContent))
+
+    Cached(900) {
+      JsonComponent(
+        "html" -> views.html.fragments.collections.popular(Seq(countryPopular)),
+        "rightHtml" -> views.html.fragments.rightMostPopularGeo(countryPopular, countryNames.get(countryCode), countryCode),
+        "country" -> countryCode
+      )
+    }
+  }
+
   def renderPopularDay(countryCode: String) = Action { implicit request =>
     Cached(900) {
       JsonComponent(
