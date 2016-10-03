@@ -156,6 +156,20 @@ define([
         });
     }
 
+    function initButtonDuration(el) {
+        el.getAttribute('data-formatted-duration');
+        el.classList.remove('vjs-big-play-button');
+        el.classList.add('vjs-big-play-button__duration');
+    }
+
+    function initArticleButtonDuration(el) {
+        var buttonElement = el.parentElement.querySelector('button.vjs-big-play-button');
+        buttonElement.classList.remove('vjs-big-play-button');
+        buttonElement.classList.add('vjs-big-play-button__duration');
+        var buttonDuration = el.getAttribute('data-formatted-duration');
+        buttonElement.dataset.formattedDuration = buttonDuration;
+    }
+
     function initExploreVideo(){
         var player = $('.vjs-tech'),
             headline = $('.explore-series-headline')[0],

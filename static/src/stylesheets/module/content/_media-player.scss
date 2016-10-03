@@ -152,8 +152,6 @@ $ima-controls-height: 70px;
     }
 }
 
-<<<<<<< f6e93ef8cfd792fdd75ca57d3080277e10bc2c25
-=======
 .vjs-big-play-button__duration {
     cursor: pointer;
     display: inline-block;
@@ -231,7 +229,7 @@ button.vjs-big-play-button__duration {
     }
 }
 
->>>>>>> ab test added and cross browser test complete
+
 .vjs-fullscreen-clickbox {
     box-sizing: border-box;
     width: 100%;
@@ -1176,7 +1174,7 @@ button.vjs-big-play-button__duration {
 .gu-media--show-controls-at-start.vjs-paused {
     .vjs-control-bar {
         //Hides control bar but still shows the seeker
-        bottom: 0;
+        bottom: -3.95em;
     }
 
     .vjs-big-play-button .vjs-control-text {
