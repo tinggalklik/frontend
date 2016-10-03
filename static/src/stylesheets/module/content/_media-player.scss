@@ -152,6 +152,86 @@ $ima-controls-height: 70px;
     }
 }
 
+<<<<<<< f6e93ef8cfd792fdd75ca57d3080277e10bc2c25
+=======
+.vjs-big-play-button__duration {
+    cursor: pointer;
+    display: inline-block;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 28px;
+    width: 100%;
+    height: 100%;
+    color: #161616;
+    border: 0;
+    backface-visibility: hidden;
+
+    .vjs-has-started & {
+        padding-bottom: 0;
+        display: none;
+    }
+
+    &:before {
+        @include fs-textSans(4);
+        content: '⎜ ' attr(data-formatted-duration);
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 20px;
+        display: inline-block;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        background-color: $media-default;
+        border-radius: 46px;
+        padding: 14px 20px 12px 23px;
+        width: 66px;
+        text-align: right;
+    }
+    &:after {
+        content: '';
+        border: 1px solid;
+        border-width: 8px 8px 8px 18px;
+        border-color: transparent transparent transparent $neutral-1;
+        position: absolute;
+        bottom: 17px;
+        left: 25px;
+        padding-right: 7px;
+        transform: translateY(-50%);
+    }
+    .vjs-control-text {
+        display: none;
+    }
+    .gu-media--audio &,
+    .vjs-has-ended &,
+    .vjs-ad-playing &,
+    .vjs-playing &,
+    .vjs-has-started.vjs-using-native-controls &,
+    .vjs-ad-loading & {
+        display: none !important;
+    }
+    .l-row__item--span-3 & {
+        top: -40%;
+        left: 3%;
+        &:after {
+            bottom: 6%;
+        }
+    }
+}
+
+button.vjs-big-play-button__duration {
+    background-color: transparent;
+    &:before {
+        margin-top: 0;
+        bottom: 43%;
+  }
+    &:after {
+        bottom: 45%;
+    }
+}
+
+>>>>>>> ab test added and cross browser test complete
 .vjs-fullscreen-clickbox {
     box-sizing: border-box;
     width: 100%;
