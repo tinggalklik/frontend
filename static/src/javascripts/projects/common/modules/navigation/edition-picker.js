@@ -1,3 +1,5 @@
+// @flow
+
 define([
     'fastdom',
     'qwery'
