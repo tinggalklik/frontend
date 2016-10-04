@@ -1190,6 +1190,9 @@
     "flatten": {
       "version": "1.0.2"
     },
+    "flow-bin": {
+      "version": "0.33.0"
+    },
     "for-in": {
       "version": "0.1.5"
     },
