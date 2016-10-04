@@ -3,26 +3,23 @@
 define([
     'fastdom',
     'qwery'
-], function (
-    fastdom,
-    qwery
-) {
-    function editionPickerClickHandler(event) {
+], function (fastdom, qwery): Function {
+    function editionPickerClickHandler(event: any): void {
         event.stopPropagation();
-        var button = event.target;
-        var editionPickerDropdown = qwery('.js-edition-picker-dropdown')[0];
+        var button: any = event.target;
+        var editionPickerDropdown: any = qwery('.js-edition-picker-dropdown')[0];
 
-        function menuIsOpen() {
+        function menuIsOpen(): boolean {
             return button.getAttribute('aria-expanded') === 'true';
         }
 
-        function closeEditionPickerAndRemoveListener() {
+        function closeEditionPickerAndRemoveListener(): void {
             closeMenu();
             document.removeEventListener('click', closeEditionPickerAndRemoveListener, false);
         }
 
-        function closeMenu() {
-            fastdom.write(function () {
+        function closeMenu(): void {
+            fastdom.write(function (): void {
                 button.setAttribute('aria-expanded', 'false');
                 if (editionPickerDropdown) {
                     editionPickerDropdown.setAttribute('aria-hidden', 'true');
@@ -33,7 +30,7 @@ define([
         if (menuIsOpen()) {
             closeEditionPickerAndRemoveListener();
         } else {
-            fastdom.write(function () {
+            fastdom.write(function (): void {
                 button.setAttribute('aria-expanded', 'true');
                 if (editionPickerDropdown) {
                     editionPickerDropdown.setAttribute('aria-hidden', 'false');
