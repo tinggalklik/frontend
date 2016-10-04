@@ -100,7 +100,12 @@ trait ABTestSwitches {
     ABTests,
     "ab-video-button-duration-vs-predator",
     "Show visitors new video play button",
-    owners = Seq(Owner.withGithub("mr-mr")),
+    owners = Seq(
+      Owner.withGithub("mr-mr"),
+      Owner.withGithub("gidsg"),
+      Owner.withGithub("akash1810"),
+      Owner.withGithub("duarte")
+    ),
     safeState = Off,
     sellByDate = new LocalDate(2016, 10, 20),
     exposeClientSide = true
