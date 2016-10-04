@@ -9,6 +9,7 @@
 **/javascripts/polyfills
 **/javascripts/projects/common/utils/atob.js
 **/javascripts/projects/common/utils/picturefill.js
+**/javascripts/projects/common/modules/navigation/edition-picker.js
 
 **/deploys-radiator/node_modules
 **/deploys-radiator/jspm_packages
