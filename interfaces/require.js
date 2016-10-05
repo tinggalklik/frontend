@@ -1,1 +1,1 @@
-declare function define(deps: Array<string>, module: function): void;
+declare function define(deps: Array<string>, module: Function): void;

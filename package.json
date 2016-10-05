@@ -106,6 +106,6 @@
     "css-watch": "gulp --cwd ./dev watch:css",
     "browser-sync": "browser-sync start --config ./dev/bs-config.js",
     "compile-deploy-radiator": "webpack --config=static/src/deploys-radiator/webpack.config.js --progress --colors && cp static/src/deploys-radiator/app/main.css static/target/deploys-radiator",
-    "flow": "flow"
+    "flow": "flow check"
   }
 }

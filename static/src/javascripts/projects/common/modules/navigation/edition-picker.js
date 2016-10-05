@@ -3,11 +3,11 @@
 define([
     'fastdom',
     'qwery'
-], function (fastdom, qwery): Function {
-    function editionPickerClickHandler(event: any): void {
+], function (fastdom: Fastdom, qwery: qwery): Function {
+    function editionPickerClickHandler(event: DomEvent): void {
         event.stopPropagation();
-        var button: any = event.target;
-        var editionPickerDropdown: any = qwery('.js-edition-picker-dropdown')[0];
+        var button: DomNode = event.target;
+        var editionPickerDropdown: DomNode = qwery('.js-edition-picker-dropdown')[0];
 
         function menuIsOpen(): boolean {
             return button.getAttribute('aria-expanded') === 'true';

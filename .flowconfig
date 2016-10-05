@@ -1,6 +1,12 @@
 [ignore]
+
 .*/node_modules/
 .*/*.json
 
+[include]
+
 [libs]
+
 interfaces/
+
+[options]
