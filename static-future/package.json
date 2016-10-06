@@ -2,7 +2,14 @@
   "name": "static-future",
   "version": "0.0.1",
   "description": "Future Client-Side Architecture",
-  "scripts": { },
+  "scripts": {
+    "build": "webpack"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "svg-inline-loader": "^0.7.1",
+    "text-loader": "0.0.1",
+    "webpack": "^1.13.2"
+  }
 }
