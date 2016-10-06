@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Future Client-Side Architecture",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/javascripts/."
+    "lint": "./node_modules/.bin/eslint src/javascripts/. || true" // || true for https://github.com/npm/npm/issues/8821 and https://github.com/npm/npm/issues/6124#issuecomment-55413381
   },
   "author": "",
   "license": "ISC",
