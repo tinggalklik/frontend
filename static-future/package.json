@@ -2,7 +2,13 @@
   "name": "static-future",
   "version": "0.0.1",
   "description": "Future Client-Side Architecture",
-  "scripts": { },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint src/javascripts/."
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.7.1",
+    "eslint-config-airbnb": "^12.0.0"
+  }
 }
