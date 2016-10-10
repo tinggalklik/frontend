@@ -11,7 +11,7 @@ define([
     'commercial/modules/dfp/render-advert-label',
     'common/modules/onward/geo-most-popular',
     'common/modules/ui/toggles',
-    'commercial/modules/user-ad-feedback'
+    'commercial/modules/user-hide-ads'
 ], function (
     bonzo,
     qwery,
@@ -25,7 +25,7 @@ define([
     renderAdvertLabel,
     geoMostPopular,
     Toggles,
-    recordUserAdFeedback
+    hideAds
 ) {
     /**
      * ADVERT RENDERING
@@ -162,11 +162,12 @@ define([
 
             function applyFeedbackOnClickListeners(slotRenderEvent) {
                 return isRendered ? fastdom.write(function () {
-                    bonzo(qwery('[data-toggle="'+advert.node.id+'__popup--feedback"]')).each(function(el) {
+                    bonzo(qwery('[data-toggle="'+advert.node.id+'__popup--hide-ads"]')).each(function(el) {
                         if (!bonzo(el).hasClass('js-onclick-ready')) {
                             el.addEventListener('click', function() {
                                 if(bonzo(el).hasClass('is-active')) {
-                                    recordUserAdFeedback(window.location.pathname, advert.node.id, slotRenderEvent, 'ad-feedback-menu-opened');
+                                    // show the payment dialog
+                                    hideAds(window.location.pathname, advert.node.id, slotRenderEvent, 'hide-ads-menu-opened');
                                 }
                             });
                             bonzo(el).addClass('js-onclick-ready');

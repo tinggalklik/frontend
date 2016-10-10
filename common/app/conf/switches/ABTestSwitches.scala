@@ -58,11 +58,11 @@ trait ABTestSwitches {
 
   Switch(
     ABTests,
-    "ab-ad-feedback",
-    "Solicit feedback for ad impressions",
+    "ab-hide-ads-dev",
+    "Voluntary paid ad-free 404 test",
     owners = Seq(Owner.withGithub("justinpinner")),
     safeState = Off,
-    sellByDate = new LocalDate(2016, 9, 14),  // Wednesday
+    sellByDate = new LocalDate(2016, 10, 27),  // Thursday @ 23:59:59 BST
     exposeClientSide = true
   )
 

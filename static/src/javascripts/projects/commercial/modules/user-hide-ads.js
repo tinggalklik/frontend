@@ -14,7 +14,8 @@ define([
     detect
 ) {
 
-    return function recordUserAdFeedback(pagePath, adSlotId, slotRenderEvent, feedbackType) {
+    return function hideAds(pagePath, adSlotId, slotRenderEvent, feedbackType) {
+        // TODO: Replace all this with payment dialog!
         var feedbackUrl = 'https://j2cy9stt59.execute-api.eu-west-1.amazonaws.com/prod/adFeedback';
         var stage = config.page.isProd ? 'PROD' : 'CODE';
         var ua = detect.getUserAgent;
