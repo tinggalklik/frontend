@@ -16,7 +16,6 @@ define([
     'qwery',
     'fastdom',
     'common/modules/user-prefs',
-    'common/modules/experiments/ab',
     'common/modules/ui/images',
     'common/utils/storage',
     'common/utils/ajax',
@@ -26,13 +25,13 @@ define([
     'common/utils/cookies',
     'common/utils/robust',
     'common/utils/user-timing',
-    'common/modules/navigation/newHeaderNavigation'
+    'common/modules/navigation/newHeaderNavigation',
+    'common/utils/detect'
 ], function (
     raven,
     qwery,
     fastdom,
     userPrefs,
-    ab,
     images,
     storage,
     ajax,
@@ -42,7 +41,8 @@ define([
     cookies,
     robust,
     userTiming,
-    newHeaderNavigation
+    newHeaderNavigation,
+    detect
 ) {
     return function () {
         var guardian = window.guardian;
@@ -78,6 +78,7 @@ define([
                 shouldSendCallback: function (data) {
                     var isDev = config.page.isDev;
                     var isIgnored = typeof(data.tags.ignored) !== 'undefined' && data.tags.ignored;
+                    var adBlockerOn = detect.adblockInUseSync();
 
                     if (isDev && !isIgnored) {
                         // Some environments don't support or don't always expose the console object
@@ -89,6 +90,7 @@ define([
                     return config.switches.enableSentryReporting &&
                         Math.random() < 0.1 &&
                         !isIgnored &&
+                        !adBlockerOn &&
                         !isDev; // don't actually notify sentry in dev mode
                 }
             }
@@ -134,34 +136,8 @@ define([
                         });
                     });
                 });
-/*
-                require(['ophan/ng'], function(ophan) {
-                    var a = el.querySelector('a');
-                    var href = a && a.href;
-
-                    if (href) {
-                        ophan.trackComponentAttention(href, el);
-                    }
-                });
-                */
             });
         }
-
-        //
-        // A/B tests
-        //
-
-        robust.catchErrorsAndLog('ab-tests', function () {
-            if (guardian.isEnhanced) {
-                ab.segmentUser();
-
-                robust.catchErrorsAndLog('ab-tests-run', ab.run);
-                robust.catchErrorsAndLog('ab-tests-registerImpressionEvents', ab.registerImpressionEvents);
-                robust.catchErrorsAndLog('ab-tests-registerCompleteEvents', ab.registerCompleteEvents);
-
-                ab.trackEvent();
-            }
-        });
 
         //
         // Set adtest query if url param declares it.
@@ -221,10 +197,6 @@ define([
             } :
             onScroll
         );
-
-/*        require(['ophan/ng'], function(ophan) {
-            ophan.setEventEmitter(mediator);
-        });*/
 
         //
         // Membership access

@@ -1,7 +1,7 @@
 /* global console */
 // Include any images needed in templates here.
 // This file is only required by core, and so has a long cache time.
-
+// /Users/simon_adcock/workspace/frontend/static-future/src/javascripts/projects/common/views/svgs.js
 define([
     'svg-inline!svgs/icon/comment-16.svg',
     'svg-inline!svgs/icon/marque-36.svg',

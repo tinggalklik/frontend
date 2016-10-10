@@ -39,11 +39,11 @@ define([
     }
 
     function sendEvent() {
-/*        require(['ophan/ng'], function (ophan) {
+        require(['ophan/ng'], function (ophan) {
             ophan.record({
                 register: register
             });
-        });*/
+        });
     }
 
     function initialise() {
