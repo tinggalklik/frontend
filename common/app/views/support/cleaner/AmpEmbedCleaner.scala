@@ -178,6 +178,38 @@ case class AmpEmbedCleaner(article: Article) extends HtmlCleaner {
     }
   }
 
+  //todo - add in witness container furniture so it looks more like the gnm page - if possible
+  def cleanAmpWitnessImage(document: Document) = {
+    document.getElementsByClass("element-witness-image").foreach { element: Element =>
+        element.getElementsByTag("img").foreach { img =>
+          val src = img.attr("src")
+          val alt = img.attr("alt")
+          val itemProp = img.attr("itemprop")
+          val elementMap = document.createElement("amp-img")
+
+          // In AMP, when using the layout `responsive`, width is 100%,
+          // and height is decided by the ratio between width and height.
+          // https://www.ampproject.org/docs/guides/responsive/control_layout.html
+          val attrs = Map(
+            "width" -> "4",
+            "height" -> "3",
+            "layout" -> "responsive",
+            "src" -> src,
+            "alt" -> alt,
+            "itemprop" -> itemProp
+          )
+          attrs.foreach {
+            case (key, value) => elementMap.attr(key, value)
+          }
+          // The following replaces the iframe element with the newly created amp-iframe element
+          // with the figure element as its parent.
+          img
+            .replaceWith(elementMap)
+        }
+      }
+  }
+
+
   private def getVideoAssets(id:String): Seq[VideoAsset] = article.elements.bodyVideos.filter(_.properties.id == id).flatMap(_.videos.videoAssets)
 
   override def clean(document: Document): Document = {
@@ -189,7 +221,7 @@ case class AmpEmbedCleaner(article: Article) extends HtmlCleaner {
     cleanAmpInstagram(document)
     cleanAmpInteractives(document)
     cleanAmpEmbed(document)
-
+    cleanAmpWitnessImage(document)
     document
   }
 

@@ -9,6 +9,9 @@ import org.scalatest.{FlatSpec, Matchers}
 class AmpEmbedCleanerTest extends FlatSpec with Matchers {
 
   val googleMapsUrl = "https://www.google.com/maps/embed/v1/place?center=-3.9834936%2C12.7024497&key=AIzaSyBctFF2JCjitURssT91Am-_ZWMzRaYBm4Q&zoom=5&q=Democratic+Republic+of+the+Congo"
+  val witnessImgUrl = "https://someurl/media/1234.jpg"
+  val witnessAssignment = s"""<html><body><figure class="element element-witness element-witness-image"><div class="element-witness--main><a href="https://witness.theguardian.com/assignment/1234/5678" itemprop="url" data-link-name="in-body-link" class="u-underline"><img src="$witnessImgUrl" alt="Shaka when the walls fell" itemprop="contentURL"></a></div><footer></footer></figure></body></html>"""
+  val witnessAssignmentNoImg = s"""<html><body><figure class="element element-witness element-witness-image"><div class="element-witness--main><a href="https://witness.theguardian.com/assignment/1234/5678" itemprop="url" data-link-name="in-body-link" class="u-underline">There be no image here!</a></div><footer></footer></figure></body></html>"""
 
   private def clean(document: Document): Document = {
     val cleaner = AmpEmbedCleaner(article())
@@ -74,6 +77,28 @@ class AmpEmbedCleanerTest extends FlatSpec with Matchers {
 
     result.getElementsByTag("amp-iframe").first.attr("src") should be(googleMapsUrl)
   }
+
+  "AmpEmbedCleaner" should "replace an img in a witness-image element with an amp-img element" in {
+    val document: Document = Jsoup.parse(witnessAssignment)
+    val result: Document = clean(document)
+
+    result.getElementsByTag("amp-img").size should be(1)
+  }
+
+  "AmpEmbedCleaner" should "not add an amp-img element if a witness-image element does not contain an img" in {
+    val document: Document = Jsoup.parse(witnessAssignmentNoImg)
+    val result: Document = clean(document)
+
+    result.getElementsByTag("amp-img").size should be(0)
+  }
+
+  "AmpEmbedCleaner called on a page with an witness-image element that contains an img-element" should "create an amp-img element with the attributes of the img-element" in {
+    val document: Document = Jsoup.parse(witnessAssignment)
+    val result: Document = clean(document)
+
+    result.getElementsByTag("amp-img").first.attr("src") should be(witnessImgUrl)
+  }
+
 
 
   private def article() = {
