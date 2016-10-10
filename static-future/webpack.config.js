@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
     entry: './src/javascripts/bootstraps/standard/entry.js',
     resolve: {
@@ -43,5 +45,9 @@ module.exports = {
     output: {
         path: __dirname + '/src/javascripts/dist-future',
         filename: 'bundle.js'
-    }
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.DedupePlugin()
+    ]
 };

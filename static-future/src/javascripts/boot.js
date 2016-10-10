@@ -43,7 +43,7 @@ define([
     var bootStandard = function() {
         var bundle = document.createElement('script');
 
-        bundle.src = 'assets/javascripts/dist-future/bundle.js';
+        bundle.src = '/assets/javascripts/dist-future/bundle.js';
         document.head.appendChild(bundle);
     };
 
