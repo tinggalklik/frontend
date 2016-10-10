@@ -35,9 +35,16 @@ define([
 
     var domReadyPromise = new Promise(function (resolve) { domReady(resolve); });
 
-    var bootStandard = function () {
-        return promiseRequire(['bootstraps/standard/main'])
+/*    var bootStandard = function () {
+        return promiseRequire(['dist-future/bundle'])
             .then(function (boot) { boot(); });
+    };*/
+
+    var bootStandard = function() {
+        var bundle = document.createElement('script');
+
+        bundle.src = 'assets/javascripts/dist-future/bundle.js';
+        document.head.appendChild(bundle);
     };
 
     var bootCommercial = function () {

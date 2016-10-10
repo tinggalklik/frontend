@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/javascripts/bootstraps/standard/main.js',
+    entry: './src/javascripts/bootstraps/standard/entry.js',
     resolve: {
         modulesDirectories: ['src/javascripts'],
         alias: {
@@ -41,7 +41,7 @@ module.exports = {
         }
     },
     output: {
-        path: __dirname + '/dist-future',
+        path: __dirname + '/src/javascripts/dist-future',
         filename: 'bundle.js'
     }
 };
