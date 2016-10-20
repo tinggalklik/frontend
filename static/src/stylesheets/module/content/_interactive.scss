@@ -129,6 +129,17 @@
         }
     }
 
+    // add immersive weighting so interactives can go full width
+    figure.element--immersive {
+        margin-left: -$gs-gutter / 2;
+        margin-right: -$gs-gutter / 2;
+
+        @include mq(mobileLandscape) {
+            margin-left: -$gs-gutter;
+            margin-right: -$gs-gutter;
+        }
+    }
+
     // Ensure margins don't overlay full-page take over interactives
     .element-interactive {
         background-color: #ffffff;
