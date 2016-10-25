@@ -163,6 +163,11 @@ case class GuLineItem(id: Long,
 
   val highMerchandisingTargets: Seq[String] = targeting.customTargetSets.flatMap(_.highMerchandisingTargets).distinct
 
+  // https://developers.google.com/doubleclick-publishers/docs/reference/v201608/LineItemService.LineItem#status
+  val isActive: Boolean = Seq("DELIVERING", "DELIVERY_EXTENDED", "READY") contains status
+
+  def in (lineItems: Seq[GuLineItem]): Boolean = lineItems.exists(_.id == id)
+
   val targetsHighMerchandising: Boolean = {
     val targetSlotIsHighMerch = for {
       targetSet <- targeting.customTargetSets
@@ -322,8 +327,8 @@ object GuCreativeTemplate extends implicits.Collections {
 
 case class LineItemReport(timestamp: String, lineItems: Seq[GuLineItem]) {
 
-  lazy val (adTestLineItems, nonAdTestLineItems) = lineItems partition {
-    _.targeting.hasAdTestTargetting
+  lazy val (adTestLineItems, nonAdTestLineItems) = lineItems partition { lineItem =>
+    lineItem.targeting.hasAdTestTargetting
   }
 }
 

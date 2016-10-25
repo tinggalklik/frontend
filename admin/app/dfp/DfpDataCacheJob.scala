@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.json.Json
 import play.api.libs.json.Json.{toJson, _}
 import tools.Store
+
 import scala.concurrent.Future
 
 object DfpDataCacheJob extends ExecutionContexts with Logging {
@@ -14,9 +15,9 @@ object DfpDataCacheJob extends ExecutionContexts with Logging {
   case class LineItemLoadSummary(prevCount: Int,
                                  loadThreshold: Option[DateTime],
                                  current: Seq[GuLineItem],
-                                 recentlyAddedIds: Iterable[Long],
-                                 recentlyModifiedIds: Iterable[Long],
-                                 recentlyRemovedIds: Iterable[Long])
+                                 recentlyAddedIds: Seq[Long],
+                                 recentlyModifiedIds: Seq[Long],
+                                 recentlyRemovedIds: Seq[Long])
 
   def run(): Future[Unit] = Future {
     if (DfpCachingSwitch.isSwitchedOn) {
@@ -70,12 +71,14 @@ object DfpDataCacheJob extends ExecutionContexts with Logging {
       log.info(s"Cached line item count now ${loadSummary.current.size}")
     }
 
-    val lineItems = {
-      val loadSummary = loadLineItems(
+    val lineItems: Seq[GuLineItem] = {
+
+      val loadSummary: LineItemLoadSummary = loadLineItems(
         fetchCachedLineItems(),
         DfpApi.readLineItemsModifiedSince,
         DfpApi.readCurrentLineItems()
       )
+
       logReport(loadSummary)
       loadSummary.current
     }
@@ -100,6 +103,7 @@ object DfpDataCacheJob extends ExecutionContexts with Logging {
     )
 
     def summarizeUpdatedCache: LineItemLoadSummary = {
+
       val threshold = cachedLineItems.map(_.lastModified).maxBy(_.getMillis)
       val recentlyModified = lineItemsModifiedSince(threshold)
 
@@ -113,23 +117,23 @@ object DfpDataCacheJob extends ExecutionContexts with Logging {
         )
 
       def summarizeModifiedCache: LineItemLoadSummary = {
-        def idToLineItem(lineItems: Seq[GuLineItem]) = lineItems.map(item => item.id -> item).toMap
-        val cachedIdToLineItem = idToLineItem(cachedLineItems)
-        val (readyOrDeliveringModified, otherModified) =
-          recentlyModified partition (Seq("READY", "DELIVERING") contains _.status)
-        val readyOrDeliveringIdToLineItem = idToLineItem(readyOrDeliveringModified)
-        val otherModifiedIds = otherModified.map(_.id)
-        val added = readyOrDeliveringIdToLineItem -- cachedIdToLineItem.keys
-        val modified = readyOrDeliveringIdToLineItem filterKeys cachedIdToLineItem.keySet.contains
-        val removed = cachedIdToLineItem filterKeys otherModifiedIds.contains
-        val lineItems = cachedIdToLineItem ++ added ++ modified -- removed.keys
+
+        val modifiedActives = recentlyModified filter (_.isActive)
+
+        val added: Seq[GuLineItem] = modifiedActives filterNot (_ in cachedLineItems)
+        val removed: Seq[GuLineItem] = cachedLineItems filterNot (_ in modifiedActives)
+        val modified: Seq[GuLineItem] = cachedLineItems filter (_ in modifiedActives)
+        val unmodified: Seq[GuLineItem] = cachedLineItems filterNot (cached => (cached in modified) || (cached in removed))
+
+        val all: Seq[GuLineItem] = added ++ modified ++ unmodified
+
         LineItemLoadSummary(
           prevCount = cachedLineItems.size,
           loadThreshold = Some(threshold),
-          lineItems.values.toSeq.sortBy(_.id),
-          recentlyAddedIds = added.keys,
-          recentlyModifiedIds = modified.keys,
-          recentlyRemovedIds = removed.keys
+          current = all.sortBy(_.id),
+          recentlyAddedIds = added map (_.id),
+          recentlyModifiedIds = modified map (_.id),
+          recentlyRemovedIds = removed map (_.id)
         )
       }
 
