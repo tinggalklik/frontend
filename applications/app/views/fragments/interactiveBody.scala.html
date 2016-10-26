@@ -77,17 +77,22 @@
                 }
 
                 return new Promise(function (resolve, reject) {
-                    require([mainJS], function (interactive) {
-                        Promise.resolve(interactive.boot(el, document, window.guardian.config))
-                            .then(resolve)
-                            .catch(reject)
-                    });
+                    try {
+                        require([mainJS], function (interactive) {
+                            Promise.resolve(interactive.boot(el, document, window.guardian.config))
+                                .then(resolve).catch(reject)
+                        });
+                    } catch (err) {
+                        reject(err);
+                    }
                 });
             });
 
-            Promise.all(interactives).then(function () {
+            Promise.all(interactives).catch(function (err) {
+                console.log('Error loading interactives', err);
+            }).then(function () {
                 @HtmlFormat.raw(loadApp().body)
-            })
+            });
         });
     </script>
 }
