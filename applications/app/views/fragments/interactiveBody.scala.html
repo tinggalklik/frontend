@@ -18,10 +18,6 @@
 }
 
 @body(interactive: model.Interactive, isImmersive: Boolean, isPaidContent: Boolean) = {
-    <script>
-        @HtmlFormat.raw(common.Assets.js.curl)
-    </script>
-
     @if(isImmersive) {
         @* Must not be wrapped in any elements to support full screen immersives *@
         @bodyRaw(interactive)
@@ -69,6 +65,7 @@
     }
 
     <script>
+        @HtmlFormat.raw(common.Assets.js.curl)
         (function () {
             var loading = 1;
 
