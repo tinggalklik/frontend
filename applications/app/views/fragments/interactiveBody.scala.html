@@ -69,7 +69,7 @@
     }
 
     <script>
-        require(['Promise'], function (Promise) {
+        function initInteractives(Promise) {
             var interactives = [].slice.apply(document.querySelectorAll('figure.interactive')).map(function (el) {
                 var mainJS = el.getAttribute('data-interactive');
                 if (!mainJS) {
@@ -93,6 +93,8 @@
             }).then(function () {
                 @HtmlFormat.raw(loadApp().body)
             });
-        });
+        }
+
+        window.Promise ? initInteractives(window.Promise) : require(['Promise'], initInteractives);
     </script>
 }
