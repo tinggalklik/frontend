@@ -69,32 +69,35 @@
     }
 
     <script>
-        function initInteractives(Promise) {
-            var interactives = [].slice.apply(document.querySelectorAll('figure.interactive')).map(function (el) {
+        (function () {
+            var loading = 1;
+
+            function loaded() {
+                loading--;
+                if (loading === 0) {
+                    @HtmlFormat.raw(loadApp().body)
+                }
+            }
+
+            [].slice.apply(document.querySelectorAll('figure.interactive')).forEach(function (el) {
                 var mainJS = el.getAttribute('data-interactive');
                 if (!mainJS) {
                     return;
                 }
 
-                return new Promise(function (resolve, reject) {
-                    try {
-                        require([mainJS], function (interactive) {
-                            Promise.resolve(interactive.boot(el, document, window.guardian.config))
-                                .then(resolve).catch(reject)
-                        });
-                    } catch (err) {
-                        reject(err);
-                    }
+                loading++;
+                require([mainJS], function (interactive) {
+                    loaded();
+                    interactive.boot(el, document, window.guardian.config);
+                }, function (err) {
+                    console.log('Interactive failed', mainJS);
+                    console.log('Error:', err);
+                    loaded();
                 });
             });
 
-            Promise.all(interactives).catch(function (err) {
-                console.log('Error loading interactives', err);
-            }).then(function () {
-                @HtmlFormat.raw(loadApp().body)
-            });
-        }
-
-        window.Promise ? initInteractives(window.Promise) : require(['Promise'], initInteractives);
+            // there might be no boot scripts to load
+            loaded();
+        })();
     </script>
 }
