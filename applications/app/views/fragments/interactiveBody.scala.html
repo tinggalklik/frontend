@@ -4,6 +4,7 @@
 @import views.support.TrailCssClasses.toneClass
 @import views.InteractiveBodyCleaner
 @import views.support.Commercial._
+@import templates.inlineJS.blocking.js.loadApp
 
 @body(page.interactive, page.item.content.isImmersive, isPaidContent(page.interactive, page))
 
@@ -17,6 +18,10 @@
 }
 
 @body(interactive: model.Interactive, isImmersive: Boolean, isPaidContent: Boolean) = {
+    <script>
+        @HtmlFormat.raw(common.Assets.js.curl)
+    </script>
+
     @if(isImmersive) {
         @* Must not be wrapped in any elements to support full screen immersives *@
         @bodyRaw(interactive)
@@ -62,4 +67,27 @@
         </div>
         @fragments.contentFooter(interactive, page.related, isPaidContent = isPaidContent)
     }
+
+    <script>
+        require(['Promise'], function (Promise) {
+            var interactives = [].slice.apply(document.querySelectorAll('figure.interactive')).map(function (el) {
+                var mainJS = el.getAttribute('data-interactive');
+                if (!mainJS) {
+                    return;
+                }
+
+                return new Promise(function (resolve, reject) {
+                    require([mainJS], function (interactive) {
+                        Promise.resolve(interactive.boot(el, document, window.guardian.config))
+                            .then(resolve)
+                            .catch(reject)
+                    });
+                });
+            });
+
+            Promise.all(interactives).then(function () {
+                @HtmlFormat.raw(loadApp().body)
+            })
+        });
+    </script>
 }

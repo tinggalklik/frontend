@@ -13,6 +13,7 @@ import scala.concurrent.Future
 
 case class InteractivePage (interactive: Interactive, related: RelatedContent) extends ContentPage {
   override lazy val item = interactive
+  override def loadAppEarly = false
 }
 
 class InteractiveController(contentApiClient: ContentApiClient) extends Controller with RendersItemResponse with Logging with ExecutionContexts {

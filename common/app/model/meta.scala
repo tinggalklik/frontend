@@ -326,6 +326,8 @@ object Page {
 trait Page {
   def metadata: MetaData
   def branding(edition: Edition): Option[Branding] = None
+
+  def loadAppEarly = true
 }
 
 // ContentPage objects use data from a ContentApi item to populate metadata.
