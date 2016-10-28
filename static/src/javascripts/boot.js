@@ -45,7 +45,8 @@ define([
             return;
         }
 // a change
-        if (config.page.isDev) {
+
+            if (config.page.isDev) { // bad change
             guardian.adBlockers.onDetect.push(function (isInUse) {
                 var needsMessage = isInUse && window.console && window.console.warn;
                 var message = 'Do you have an adblocker enabled? Commercial features might fail to run, or throw exceptions.';
