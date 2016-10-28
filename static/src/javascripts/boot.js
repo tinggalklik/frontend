@@ -47,7 +47,6 @@ define([
 // a change
 if
 
-
         if (config.page.isDev) {
             guardian.adBlockers.onDetect.push(function (isInUse) {
                 var needsMessage = isInUse && window.console && window.console.warn;
