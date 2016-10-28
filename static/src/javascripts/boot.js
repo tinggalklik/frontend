@@ -44,7 +44,7 @@ define([
         if (!config.switches.commercial) {
             return;
         }
-
+// a change
         if (config.page.isDev) {
             guardian.adBlockers.onDetect.push(function (isInUse) {
                 var needsMessage = isInUse && window.console && window.console.warn;
